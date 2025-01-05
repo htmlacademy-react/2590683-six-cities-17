@@ -1,9 +1,9 @@
 import { Cities } from '../consts';
 
 interface Location {
-  latitude: number,
-  longitude: number,
-  zoom: number,
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 export interface CardType {
   id: string;
