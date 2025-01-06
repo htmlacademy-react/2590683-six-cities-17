@@ -116,27 +116,6 @@ export const mockCards: CardType[] = [
     isPremium: true,
     rating: 1.5,
   },
-  // {
-  //   id: '8eb3e43e-c0ca-4503-a8d2-a4009b2b9558',
-  //   title: 'Tile House',
-  //   type: 'house',
-  //   price: 584,
-  //   previewImage: 'https://16.design.htmlacademy.pro/static/hotel/13.jpg',
-  //   city: {
-  //     name: 'Paris',
-  //     location: {
-  //       latitude: 48.85661,
-  //       longitude: 2.351499,
-  //       zoom: 13,
-  //     },
-  //   },
-  //   location: {
-  //     latitude: 48.87961000000001,
-  //     longitude: 2.353499,
-  //     zoom: 16,
-  //   },
-  //   isFavorite: false,
-  //   isPremium: false,
-  //   rating: 4.7,
-  // },
 ];
+
+export const isAuth = false;
