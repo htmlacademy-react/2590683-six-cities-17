@@ -1,6 +1,10 @@
-export default function PremiumItem() {
+type PremiumItemProps = {
+  className: string;
+};
+
+export default function PremiumItem({ className }: PremiumItemProps) {
   return (
-    <div className="place-card__mark">
+    <div className={className}>
       <span>Premium</span>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { mockCards } from './mocks';
+import { mockOffers } from './mocks/offers';
 import App from './app';
 
 const root = ReactDOM.createRoot(
@@ -9,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App cards={mockCards}></App>
+    <App cards={mockOffers}></App>
   </React.StrictMode>
 );
