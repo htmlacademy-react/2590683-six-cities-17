@@ -13,14 +13,14 @@ export interface OfferInterface {
   type: 'apartment' | 'room' | 'house' | 'hotel';
   price: number;
   previewImage?: string;
-  images?: string[];
+  images: string[];
   city: {
     location: Location;
     name: (typeof Cities)[number];
   };
   location: Location;
-  goods?: string[];
-  host?: {
+  goods: string[];
+  host: {
     isPro: boolean;
     name: string;
     avatarUrl: string;
@@ -28,8 +28,8 @@ export interface OfferInterface {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  bedrooms?: number;
-  maxAdults?: number;
+  bedrooms: number;
+  maxAdults: number;
 }
 
 export const mockOffers: OfferInterface[] = [

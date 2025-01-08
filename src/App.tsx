@@ -3,10 +3,10 @@ import MainPage from './pages/main/mainPage';
 import { LoginPage } from './pages/login/loginPage';
 import FavoritesPage from './pages/favorites/favoritesPage';
 import OfferPage from './pages/offer/offerPage';
-import NotFoundPage from './pages/notFound/notFoundPage';
-import PrivateRoute from './components/private-Route/privateRoute';
 import { OfferInterface, mockOffers } from './mocks/offers';
 import { reviewsArray } from './mocks/reviews';
+import PrivateRoute from './components/Private-Route/PrivateRoute';
+import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 type AppProps = {
   cards: OfferInterface[];
