@@ -5,7 +5,7 @@ import FavoritesPage from './pages/favorites/favoritesPage';
 import OfferPage from './pages/offer/offerPage';
 import { OfferInterface, mockOffers } from './mocks/offers';
 import { reviewsArray } from './mocks/reviews';
-import PrivateRoute from './components/Private-Route/PrivateRoute';
+import PrivateRoute from './components/private-Route/privateRoute';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 type AppProps = {
