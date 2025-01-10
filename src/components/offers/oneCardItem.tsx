@@ -2,26 +2,32 @@ import { OfferInterface } from '../../mocks/offers';
 import PremiumItem from '../premium/premium';
 import RatingItem from '../ratingItem/ratingItem';
 
-type OneCardPageProps = {
+type OneCardItemProps = {
   card: OfferInterface;
   handleMouseEnter: (id: string) => void;
   handleMouseLeave: () => void;
+  className: string;
 };
 
-export default function OneCardMainPage({
+export default function OneCardItem({
   card,
   handleMouseEnter,
   handleMouseLeave,
-}: OneCardPageProps) {
+  className,
+}: OneCardItemProps) {
   return (
     <article
-      className="cities__card place-card"
+      className={`place-card ${className ? `${className}__card` : ''}`}
       onMouseEnter={() => handleMouseEnter(card.id)}
       onMouseLeave={handleMouseLeave}
     >
       {card.isPremium && <PremiumItem className={'place-card__mark'} />}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div
+        className={`place-card__image-wrapper ${
+          className ? `${className}__image-wrapper` : ''
+        }`}
+      >
         <div>
           <img
             className="place-card__image"

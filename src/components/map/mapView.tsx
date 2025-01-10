@@ -12,9 +12,10 @@ type MapPropsType = {
   };
   points: OfferInterface[];
   selectedPoint?: OfferInterface | undefined;
+  type: 'offer' | 'cities';
 };
 
-function Map({ city, points, selectedPoint }: MapPropsType) {
+function MapView({ city, points, selectedPoint, type }: MapPropsType) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -53,10 +54,13 @@ function Map({ city, points, selectedPoint }: MapPropsType) {
   }, [map, points, selectedPoint]);
 
   return (
-    <div className="cities__right-section">
-      <section ref={mapRef} className="map cities__map"></section>
-    </div>
+    <section
+      ref={mapRef}
+      className={`map ${
+        type === 'offer' ? 'offer__map' : type === 'cities' ? 'cities__map' : ''
+      }`}
+    />
   );
 }
 
-export default Map;
+export default MapView;

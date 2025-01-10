@@ -26,7 +26,9 @@ function Header() {
                   <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                   </span>
-                  <span className="header__favorite-count">3</span>
+                  <Link to={'/favorites'}>
+                    <span className="header__favorite-count">3</span>
+                  </Link>
                 </div>
               </li>
               <li className="header__nav-item">
