@@ -1,12 +1,12 @@
-export const Cities = [
+export const Cities: string[] = [
   'Paris',
   'Cologne',
   'Brussels',
   'Amsterdam',
   'Hamburg',
   'Dusseldorf',
-] as const;
-export type CityType = (typeof Cities)[number];
+];
+export type CityNameType = (typeof Cities)[number];
 
 export const FilterList = [
   'Popular',
@@ -15,7 +15,18 @@ export const FilterList = [
   'Top rated first',
 ] as const;
 
-export const CitiesСoord = {
+export type CityType = {
+  title: string;
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+
+type CitiesType = {
+  [key: string]: CityType;
+};
+
+export const CitiesСoord: CitiesType = {
   Paris: {
     title: 'Paris',
     lat: 48.85661,

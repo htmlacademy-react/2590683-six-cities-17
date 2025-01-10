@@ -1,5 +1,5 @@
-import { CitiesСoord, CityType } from '../consts';
+import { CitiesСoord, CityNameType } from '../consts';
 
-export function getCityCoord(city: CityType) {
+export function getCityCoord(city: CityNameType) {
   return CitiesСoord[city];
 }
