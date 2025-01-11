@@ -1,35 +1,23 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import MainPage from './pages/main/mainPage';
+import MainPage from './pages/main/main-page';
 import { LoginPage } from './pages/login/loginPage';
 import FavoritesPage from './pages/favorites/favoritesPage';
-import OfferPage from './pages/offer/offerPage';
-import { OfferInterface, mockOffers } from './mocks/offers';
-import { reviewsArray } from './mocks/reviews';
+import OfferPage from './pages/offer/offer-page';
 import PrivateRoute from './components/private-Route/privateRoute';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 
-type AppProps = {
-  cards: OfferInterface[];
-};
-
-function App({ cards }: AppProps) {
+function App() {
+  // const places = useAppSelector((state) => state.placesInChoosedCity);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage cards={cards} />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route
           path="favorites"
-          element={
-            <PrivateRoute element={<FavoritesPage offers={mockOffers} />} />
-          }
+          element={<PrivateRoute element={<FavoritesPage />} />}
         />
-        <Route
-          path="offer/:id"
-          element={
-            <OfferPage mockDetailedOffers={mockOffers} reviews={reviewsArray} />
-          }
-        />
+        <Route path="offer/:id" element={<OfferPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

@@ -4,33 +4,40 @@ import useMap from '../../hooks/useMap';
 import leaflet from 'leaflet';
 
 type MapPropsType = {
-  city: {
+  cityInfomation: {
     title: string;
     lat: number;
     lng: number;
     zoom: number;
   };
   points: OfferInterface[];
-  selectedPoint?: OfferInterface | undefined;
+  selectedPlace?: string | null;
   type: 'offer' | 'cities';
 };
 
-function MapView({ city, points, selectedPoint, type }: MapPropsType) {
+function MapView({
+  cityInfomation,
+  points,
+  selectedPlace,
+  type,
+}: MapPropsType) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, cityInfomation);
 
-  // const defaultCustomIcon = leaflet.icon({
-  //   iconUrl: URL_MARKER_DEFAULT,
-  //   iconSize: [40, 40],
+  const defaultCustomIcon = leaflet.icon({
+    iconUrl:
+      'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+    iconSize: [40, 40],
 
-  //   iconAnchor: [20, 40],
-  // });
+    iconAnchor: [20, 40],
+  });
 
-  // const currentCustomIcon = leaflet.icon({
-  //   iconUrl: URL_MARKER_CURRENT,
-  //   iconSize: [40, 40],
-  //   iconAnchor: [20, 40],
-  // });
+  const currentCustomIcon = leaflet.icon({
+    iconUrl:
+      'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
 
   useEffect(() => {
     if (map) {
@@ -40,18 +47,18 @@ function MapView({ city, points, selectedPoint, type }: MapPropsType) {
             {
               lat: point.location?.latitude,
               lng: point.location?.longitude,
+            },
+            {
+              icon:
+                point.id === selectedPlace
+                  ? currentCustomIcon
+                  : defaultCustomIcon,
             }
-            // {
-            //   icon:
-            //     point.title === selectedPoint.title
-            //       ? currentCustomIcon
-            //       : defaultCustomIcon,
-            // }
           )
           .addTo(map);
       });
     }
-  }, [map, points, selectedPoint]);
+  }, [map, points, selectedPlace]);
 
   return (
     <section

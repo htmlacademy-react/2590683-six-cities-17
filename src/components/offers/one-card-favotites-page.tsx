@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { OfferInterface } from '../../mocks/offers';
 import PremiumItem from '../premium/premium';
-import RatingItem from '../ratingItem/ratingItem';
+import RatingItem from '../rating-item/rating-item';
 
 type OneCardFavoritesPageType = {
   card: OfferInterface;

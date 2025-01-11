@@ -1,26 +1,30 @@
 import { useState } from 'react';
 import { OfferInterface } from '../../mocks/offers';
 import { Link } from 'react-router-dom';
-import OneCardItem from './oneCardItem';
+import OneCardItem from './one-card-item';
 import MainPageSort from '../sort/mainPageSort';
-import TextForOffers from './withTextForOffers';
+import TextForOffers from './with-text-for-offers';
 
 type OffersListMainPagePropsType = {
   offers: OfferInterface[];
-  activeCity?: string;
+  activeCity: string | null;
+  setActivePlace: (title: string | null) => void;
 };
 
 export default function OffersListMainPage({
   offers,
   activeCity,
+  setActivePlace,
 }: OffersListMainPagePropsType) {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const handleMouseEnter = (id: string) => {
     setActiveOfferId(id);
+    setActivePlace?.(id);
   };
 
   const handleMouseLeave = () => {
     setActiveOfferId(null);
+    setActivePlace(null);
   };
 
   const [isOpenSort, setIsOpenSort] = useState(false);

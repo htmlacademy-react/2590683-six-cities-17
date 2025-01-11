@@ -1,13 +1,11 @@
 import Header from '../../components/header/header';
 import OffersList from '../../components/offers/offersListFavorites';
 import Footer from '../../footer/footer';
-import { OfferInterface } from '../../mocks/offers';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesPagePropsType = {
-  offers: OfferInterface[];
-};
+export default function FavoritesPage() {
+  const offers = useAppSelector((state) => state.placesAllData);
 
-export default function FavoritesPage({ offers }: FavoritesPagePropsType) {
   const favoritesOffers = offers.filter((offer) => offer.isFavorite);
   return (
     <div className="page">
