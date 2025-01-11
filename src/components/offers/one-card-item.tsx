@@ -1,6 +1,6 @@
 import { OfferInterface } from '../../mocks/offers';
 import PremiumItem from '../premium/premium';
-import RatingItem from '../ratingItem/ratingItem';
+import RatingItem from '../rating-item/rating-item';
 
 type OneCardItemProps = {
   card: OfferInterface;

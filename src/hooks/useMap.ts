@@ -35,8 +35,12 @@ function useMap(
 
       setMap(instance);
       isRenderedRef.current = true;
+    } else {
+      if (map !== null) {
+        map.setView([city.lat, city.lng], city.zoom);
+      }
     }
-  }, [mapRef, city]);
+  }, [mapRef, city, map]);
 
   return map;
 }

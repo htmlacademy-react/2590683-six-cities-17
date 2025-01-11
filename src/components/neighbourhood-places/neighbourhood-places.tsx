@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { OfferInterface } from '../../mocks/offers';
-import OneCardItem from '../offers/oneCardItem';
-import TextForOffers from '../offers/withTextForOffers';
+import OneCardItem from '../offers/one-card-item';
+import TextForOffers from '../offers/with-text-for-offers';
 
 type NeighbourhoodPlacesPropsType = {
   offers: OfferInterface[];

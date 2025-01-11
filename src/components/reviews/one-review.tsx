@@ -1,6 +1,6 @@
 import { formatDate } from '../../helpers/formatDate';
 import { ReviewType } from '../../mocks/reviews';
-import RatingItem from '../ratingItem/ratingItem';
+import RatingItem from '../rating-item/rating-item';
 
 type OneReviewPropsType = {
   review: ReviewType;

@@ -1,28 +1,19 @@
 import { useParams } from 'react-router';
 import Header from '../../components/header/header';
 import PremiumItem from '../../components/premium/premium';
-import RatingItem from '../../components/ratingItem/ratingItem';
-import { ReviewType } from '../../mocks/reviews';
-import { OfferInterface } from '../../mocks/offers';
+import RatingItem from '../../components/rating-item/rating-item';
+import { reviewsArray } from '../../mocks/reviews';
+import { mockOffer } from '../../mocks/offers';
 import ReviewsSection from '../../components/reviews/reviews-section/reviews-section';
-import { getCityCoord } from '../../helpers/coordCity';
-import MapView from '../../components/map/mapView';
-import { neighbourhoodPlaces } from '../../mocks/neighbourhoodPlaces';
-import NeighbourhoodPlaces from '../../components/neighbourhoodPlaces/neighbourhoodPlaces';
+import { getCityInfomation } from '../../helpers/coord-city';
+import MapView from '../../components/map-view/map-view';
+import { neighbourhoodPlaces } from '../../mocks/neighbourhood-places';
+import NeighbourhoodPlaces from '../../components/neighbourhood-places/neighbourhood-places';
 
-type OfferPagePropsType = {
-  mockDetailedOffers: OfferInterface[];
-  reviews: ReviewType[];
-};
-
-export default function OfferPage({
-  mockDetailedOffers,
-  reviews,
-}: OfferPagePropsType) {
+export default function OfferPage() {
   const { id } = useParams();
-  const offer = mockDetailedOffers.find((item) => item.id === id);
-
-  const offerReviews = reviews.filter((review) => review.id === id);
+  const offer = mockOffer;
+  const offerReviews = reviewsArray;
 
   return (
     <div className="page">
@@ -115,16 +106,14 @@ export default function OfferPage({
           </div>
           {offer && (
             <MapView
-              city={getCityCoord(offer.city.name)}
+              cityInfomation={getCityInfomation(offer)}
               points={neighbourhoodPlaces}
               type={'offer'}
             />
           )}
         </section>
         <div className="container">
-          <NeighbourhoodPlaces
-            offers={neighbourhoodPlaces}
-          ></NeighbourhoodPlaces>
+          <NeighbourhoodPlaces offers={neighbourhoodPlaces} />
         </div>
       </main>
     </div>
