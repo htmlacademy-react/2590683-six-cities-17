@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { OfferInterface } from '../../mocks/offers';
 import { Link } from 'react-router-dom';
 import OneCardItem from './one-card-item';
-import MainPageSort from '../sort/mainPageSort';
+import MainPageSort from '../sort/main-page-sort';
 import TextForOffers from './with-text-for-offers';
+import { sortPlaces } from '../../helpers/sort-places';
 
 type OffersListMainPagePropsType = {
   offers: OfferInterface[];
@@ -37,6 +38,8 @@ export default function OffersListMainPage({
     setIsOpenSort(!isOpenSort);
   };
 
+  const sortedOffers = sortPlaces(offers, filterNow);
+
   return (
     <TextForOffers type="mainPage">
       <b className="places__found">
@@ -49,8 +52,8 @@ export default function OffersListMainPage({
         isOpenSort={isOpenSort}
       />
       <div className="cities__places-list places__list tabs__content">
-        {offers &&
-          offers.map((offer) => (
+        {sortedOffers &&
+          sortedOffers.map((offer) => (
             <Link key={offer.id} to={`/offer/${activeOfferId}`}>
               <OneCardItem
                 card={offer}

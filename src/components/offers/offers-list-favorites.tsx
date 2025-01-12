@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import OneCardFavoritesPage from './oneCardFavotitesPage';
+import OneCardFavoritesPage from './one-card-favotites-page';
 import { OfferInterface } from '../../mocks/offers';
 
 type OffersListPropsType = {
