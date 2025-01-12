@@ -8,12 +8,12 @@ export const Cities: string[] = [
 ];
 export type CityNameType = (typeof Cities)[number];
 
-export const FilterList = [
+export const FilterList: string[] = [
   'Popular',
   'Price: low to high',
   'Price: high to low',
   'Top rated first',
-] as const;
+];
 
 export type CityType = {
   title: string;

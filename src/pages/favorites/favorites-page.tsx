@@ -1,5 +1,5 @@
 import Header from '../../components/header/header';
-import OffersList from '../../components/offers/offersListFavorites';
+import OffersList from '../../components/offers/offers-list-favorites';
 import Footer from '../../footer/footer';
 import { useAppSelector } from '../../hooks';
 

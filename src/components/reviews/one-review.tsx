@@ -1,4 +1,4 @@
-import { formatDate } from '../../helpers/formatDate';
+import { formatDate } from '../../helpers/format-date';
 import { ReviewType } from '../../mocks/reviews';
 import RatingItem from '../rating-item/rating-item';
 

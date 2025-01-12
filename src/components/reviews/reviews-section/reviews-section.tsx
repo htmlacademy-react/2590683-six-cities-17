@@ -1,6 +1,6 @@
 import { ReviewType } from '../../../mocks/reviews';
-import ReviewForm from '../addReview/reviewForm';
-import OneReview from '../oneReview';
+import ReviewForm from '../add-review/reviewForm';
+import OneReview from '../one-review';
 
 type ReviewsSectionPropsType = {
   offerReviews: ReviewType[];
