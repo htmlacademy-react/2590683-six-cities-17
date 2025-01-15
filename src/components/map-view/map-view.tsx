@@ -10,7 +10,7 @@ type MapPropsType = {
     lng: number;
     zoom: number;
   };
-  points: OfferInterface[];
+  points: OfferInterface[] | null;
   selectedPlace?: string | null;
   type: 'offer' | 'cities';
 };

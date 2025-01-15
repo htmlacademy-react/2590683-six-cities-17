@@ -1,4 +1,4 @@
-import { OfferInterface } from '../mocks/offers';
+import { OfferInterface } from '../types/places-type';
 
 export function getCityInfomation(city: OfferInterface) {
   return {

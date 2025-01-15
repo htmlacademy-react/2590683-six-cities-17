@@ -1,6 +1,6 @@
 import Header from '../../components/header/header';
 import OffersList from '../../components/offers/offers-list-favorites';
-import Footer from '../../footer/footer';
+import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
 
 export default function FavoritesPage() {

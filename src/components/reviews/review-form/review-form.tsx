@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import RatingReviewForm from './ratingReviewForm';
+import RatingReviewForm from './rating-review-form';
 
 const ReviewForm = () => {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);

@@ -1,28 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/header/header';
 import { Locations } from '../../components/locations/locations';
 import OffersListMainPage from '../../components/offers/offers-list-main-page';
 import { getCityInfomation } from '../../helpers/coord-city';
-import { CityNameType } from '../../consts';
 import MapView from '../../components/map-view/map-view';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { placesOfChoosedCity } from '../../store/action';
-
-// type MainPageProps = {
-//   places: OfferInterface[];
-// };
+import { fetchDetailedOfferAction } from '../../store/api-actions';
 
 export default function MainPage() {
   const places = useAppSelector((state) => state.placesInChoosedCity);
   const dispatch = useAppDispatch();
 
-  const [activeCity, setIsActiveCity] = useState<CityNameType>('Paris');
+  const [activeCity, setIsActiveCity] = useState<string>('Paris');
   const [activePlace, setActivePlace] = useState<string | null>(null);
 
-  const changeCityHandler = (city: CityNameType) => {
+  const changeCityHandler = (city: string) => {
     setIsActiveCity(city);
     dispatch(placesOfChoosedCity(city));
   };
+
   return (
     <div className="page page--gray page--main">
       <Header />
