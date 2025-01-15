@@ -1,12 +1,4 @@
-export const Cities: string[] = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf',
-];
-export type CityNameType = (typeof Cities)[number];
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const FilterList: string[] = [
   'Popular',
@@ -15,9 +7,23 @@ export const FilterList: string[] = [
   'Top rated first',
 ];
 
-export type CityType = {
-  title: string;
-  lat: number;
-  lng: number;
-  zoom: number;
-};
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Offers = '/six-cities/offers',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const Cities: string[] = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];

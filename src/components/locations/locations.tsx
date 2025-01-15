@@ -1,8 +1,8 @@
-import { Cities, CityNameType } from '../../consts';
+import { Cities } from '../../consts';
 
 type LocationsPropsType = {
-  activeCity: CityNameType;
-  changeCityHandler: (city: CityNameType) => void;
+  activeCity: string;
+  changeCityHandler: (city: string) => void;
 };
 
 export const Locations = ({

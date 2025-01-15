@@ -5,9 +5,24 @@ import FavoritesPage from './pages/favorites/favorites-page';
 import OfferPage from './pages/offer/offer-page';
 import PrivateRoute from './components/private-route/private-route';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
+import { useAppSelector } from './hooks';
+import LoadingScreen from './pages/loading-screen/loading-screen';
 
 function App() {
-  // const places = useAppSelector((state) => state.placesInChoosedCity);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus
+  );
+  const isOffersDataLoading = useAppSelector(
+    (state) => state.isOffersDataLoading
+  );
+
+  if (
+    // authorizationStatus === AuthorizationStatus.Unknown ||
+    isOffersDataLoading
+  ) {
+    return <LoadingScreen />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
