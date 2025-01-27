@@ -1,8 +1,8 @@
 import { Cities } from '../../consts';
 
 type LocationsPropsType = {
-  activeCity: string;
-  changeCityHandler: (city: string) => void;
+  activeCity: Cities;
+  changeCityHandler: (city: Cities) => void;
 };
 
 export const Locations = ({
@@ -13,7 +13,7 @@ export const Locations = ({
     <section className="locations container">
       <ul className="locations__list tabs__list">
         {Cities &&
-          Cities.map((city) => (
+          Object.values(Cities).map((city) => (
             <li className="locations__item" key={city}>
               <div
                 className={`locations__item-link tabs__item 

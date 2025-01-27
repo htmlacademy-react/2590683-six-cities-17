@@ -1,3 +1,5 @@
+import { NEAR_PLACES_TITLE } from '../../consts';
+
 type TextForOffersType = {
   type: 'mainPage' | 'nearPlaces';
   children: React.ReactNode;
@@ -13,9 +15,7 @@ export default function TextForOffers({ type, children }: TextForOffersType) {
         </section>
       ) : type === 'nearPlaces' ? (
         <section className="near-places places">
-          <h2 className="near-places__title">
-            Other places in the neighbourhood
-          </h2>
+          <h2 className="near-places__title">{NEAR_PLACES_TITLE}</h2>
           <div className="near-places__list places__list">{children}</div>
         </section>
       ) : null}

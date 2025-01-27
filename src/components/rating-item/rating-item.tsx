@@ -4,7 +4,7 @@ type RatingItemPropsType = {
 };
 
 function RatingItem({ rating, type }: RatingItemPropsType) {
-  const widthStar = (rating / 5) * 100;
+  const widthStar = (Math.round(rating) / 5) * 100;
 
   return (
     <>

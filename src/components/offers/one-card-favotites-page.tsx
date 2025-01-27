@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import { OfferInterface } from '../../mocks/offers';
 import PremiumItem from '../premium/premium';
 import RatingItem from '../rating-item/rating-item';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import { DetailedOfferInterface } from '../../types/places-type';
 
 type OneCardFavoritesPageType = {
-  card: OfferInterface;
+  card: DetailedOfferInterface;
   handleMouseEnter: (id: string) => void;
   handleMouseLeave: () => void;
   activeOfferId: string | null;
@@ -40,19 +41,7 @@ function OneCardFavoritesPage({
             <b className="place-card__price-value">&euro;{card.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${
-              card.isFavorite ? 'place-card__bookmark-button--active ' : ' '
-            }`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">
-              {`${card.isFavorite ? 'In bookmarks' : 'To bookmarks'}`}
-            </span>
-          </button>
+          {card && <BookmarkButton type="place-card" offer={card} />}
         </div>
         <RatingItem type="place" rating={card.rating} />
         <h2 className="place-card__name">
