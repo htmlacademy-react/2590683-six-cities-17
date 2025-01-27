@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import TextForOffers from '../offers/with-text-for-offers';
 import OneOfferItem from '../offers/one-offer-item';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getNearByOffers } from '../../store/offers-data/selectors';
 import { fetchNearByOffersAction } from '../../store/api-actions';
 
 type NeighbourhoodPlacesPropsType = {
@@ -22,7 +21,7 @@ function NeighbourhoodPlaces({
     setActiveOfferId(null);
   };
 
-  const nearByOffers = useAppSelector(getNearByOffers);
+  const nearByOffers = useAppSelector((state) => state.COMBINED.nearByOffers);
   const slicedPlaces = nearByOffers?.slice(0, 3) || [];
 
   useEffect(() => {

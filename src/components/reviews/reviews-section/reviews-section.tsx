@@ -22,12 +22,6 @@ function ReviewsSection({ offerId }: ReviewsSectionPropsType) {
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 10);
 
-  // useEffect(() => {
-  //   if (!offerReviews.length && offerId) {
-  //     dispatch(fetchLoadReviewsOfferDataAction({ offerId }));
-  //   }
-  // }, [offerId, dispatch]);
-
   useEffect(() => {
     const fetchData = async () => {
       if (!offerReviews.length && offerId) {

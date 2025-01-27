@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks';
 
 export default function BookmarkCounter() {
-  const favoritesOffer = useAppSelector((state) => state.FAVORITES.favorites);
+  const favoritesOffer = useAppSelector((state) => state.COMBINED.favorites);
 
   return (
     <span className="header__favorite-count">

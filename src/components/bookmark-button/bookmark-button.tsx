@@ -18,13 +18,9 @@ const BookmarkButton = memo(function BookmarkButton({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authStatus = useAppSelector(getAuthorizationStatus);
-  const favoriteOffers = useAppSelector((state) => state.FAVORITES.favorites);
+  const favoriteOffers = useAppSelector((state) => state.COMBINED.favorites);
   const isFavorite = useMemo(() => {
-    return (
-      favoriteOffers !== null &&
-      favoriteOffers?.length &&
-      favoriteOffers?.some((place) => place.id === offer.id)
-    );
+    return offer.isFavorite;
   }, [favoriteOffers, offer]);
 
   const changeFavoriteStatusHandler = async (

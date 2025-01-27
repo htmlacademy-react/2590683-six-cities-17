@@ -9,7 +9,7 @@ import { AuthorizationStatus, FAVORITES__TITLE } from '../../consts';
 
 export default function FavoritesPage() {
   const dispatch = useAppDispatch();
-  const favoritesOffers = useAppSelector((state) => state.FAVORITES.favorites);
+  const favoritesOffers = useAppSelector((state) => state.COMBINED.favorites);
   const isAuth = useAppSelector((state) => state.USER.authorizationStatus);
 
   useEffect(() => {

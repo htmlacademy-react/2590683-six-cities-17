@@ -2,13 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed; /* Закрепляем элемент относительно окна */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8); /* Светлый фон с прозрачностью */
-  z-index: 1000; /* Устанавливаем высокий слой */
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
 }
 
 .spinner {

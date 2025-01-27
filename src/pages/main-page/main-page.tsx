@@ -6,25 +6,27 @@ import { getCityInfomation } from '../../helpers/coord-city';
 import MapView from '../../components/map-view/map-view';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import MainEmptyItem from '../../components/main-empty/main-empty-item';
-import { setCurrentCity } from '../../store/offers-data/offers-data';
 import { AuthorizationStatus, Cities } from '../../consts';
-import { getAllOffers } from '../../store/offers-data/selectors';
 import {
   fetchFavoriteOffersAction,
   fetchOffersAction,
 } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { setCurrentCity } from '../../store/combined-data/combined-data';
 
 export default function MainPage() {
   const [activePlace, setActivePlace] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const isOffersLoading = useAppSelector(
-    (state) => state.DATA.offersDataLoadingStatus
+    (state) => state.COMBINED.offersDataLoadingStatus
   );
-  const allPlaces = useAppSelector(getAllOffers);
+  const isOffersFavoritesLoading = useAppSelector(
+    (state) => state.COMBINED.favoriteOffersDataLoadingStatus
+  );
+  const allPlaces = useAppSelector((state) => state.COMBINED.offers);
   const isAuth = useAppSelector((state) => state.USER.authorizationStatus);
-  const activeCity = useAppSelector((state) => state.DATA.currentCity);
-  const favoritesOffers = useAppSelector((state) => state.FAVORITES.favorites);
+  const activeCity = useAppSelector((state) => state.COMBINED.currentCity);
+  const favoritesOffers = useAppSelector((state) => state.COMBINED.favorites);
 
   const placesInChoosedCity =
     allPlaces &&
@@ -46,9 +48,9 @@ export default function MainPage() {
       }
     };
     fetchData();
-  }, [dispatch, allPlaces, favoritesOffers, isAuth]);
+  }, [dispatch, allPlaces, favoritesOffers]);
 
-  if (isOffersLoading) {
+  if (isOffersLoading || isOffersFavoritesLoading) {
     return <LoadingScreen />;
   }
 

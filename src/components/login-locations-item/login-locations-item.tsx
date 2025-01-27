@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, Cities } from '../../consts';
 import { useAppDispatch } from '../../hooks';
-import { setCurrentCity } from '../../store/offers-data/offers-data';
+import { setCurrentCity } from '../../store/combined-data/combined-data';
 
 export default function LoginLocationsItem() {
   const dispatch = useAppDispatch();

@@ -12,12 +12,8 @@ import {
   fetchFavoriteOffersAction,
   fetchNearByOffersAction,
 } from '../../store/api-actions';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
-import {
-  getDetailedOffer,
-  getNearByOffers,
-} from '../../store/offers-data/selectors';
 import { AppRoute, OFFER__HOST_TITLE } from '../../consts';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { toast } from 'react-toastify';
@@ -25,48 +21,50 @@ import { useNavigate } from 'react-router-dom';
 
 export default function OfferPage() {
   const dispatch = useAppDispatch();
-  const isDeteiledOfferLoading = useAppSelector(
-    (state) => state.DATA.offerDetailedDataLoadingStatus
-  );
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const isDeteiledOfferLoading = useAppSelector(
+    (state) => state.COMBINED.offerDetailedDataLoadingStatus
+  );
+  const allNeighbourhoodPlaces = useAppSelector(
+    (state) => state.COMBINED.nearByOffers
+  );
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
-  const offer = useAppSelector(getDetailedOffer);
-
-  const allNeighbourhoodPlaces = useAppSelector(getNearByOffers);
-  const { id } = useParams<{ id: string }>();
-
-  const slicedPlaces = offer
-    ? [offer, ...(allNeighbourhoodPlaces?.slice(0, 3) || [])]
-    : allNeighbourhoodPlaces?.slice(0, 3) || [];
+  const offer = useAppSelector((state) => state.COMBINED.detailedOffer);
+  const slicedPlaces = useMemo(() => {
+    return offer
+      ? [offer, ...(allNeighbourhoodPlaces?.slice(0, 3) || [])]
+      : allNeighbourhoodPlaces?.slice(0, 3) || [];
+  }, [offer, allNeighbourhoodPlaces]);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (id) {
-        try {
-          if (!offer || offer.id !== id) {
-            const result = await dispatch(
-              fetchDetailedOfferAction({ offerId: id })
-            );
-            if (fetchDetailedOfferAction.rejected.match(result)) {
-              toast.error(`Error: ${result.error.message}`);
-              navigate(AppRoute.Any);
-            }
-            await dispatch(fetchFavoriteOffersAction());
-            if (!allNeighbourhoodPlaces.length) {
-              await dispatch(fetchNearByOffersAction({ offerId: id }));
-            }
-          }
-        } catch (error) {
-          toast.error('An unexpected error occurred.');
+      if (!id) {
+        toast.error('Invalid offer ID');
+        navigate(AppRoute.Any);
+        return;
+      }
+
+      try {
+        await dispatch(fetchFavoriteOffersAction());
+        const result = await dispatch(
+          fetchDetailedOfferAction({ offerId: id })
+        );
+        if (fetchDetailedOfferAction.rejected.match(result)) {
+          toast.error(`Error: ${result.error.message}`);
+          navigate(AppRoute.Any);
         }
+        await dispatch(fetchNearByOffersAction({ offerId: id }));
+      } catch (error) {
+        toast.error('An unexpected error occurred.');
       }
     };
 
     fetchData();
-  }, [id, dispatch, offer, allNeighbourhoodPlaces.length]);
+  }, [id, dispatch, navigate]);
 
-  if (isDeteiledOfferLoading) {
+  if (isDeteiledOfferLoading || !offer) {
     return <LoadingScreen />;
   }
 
@@ -77,53 +75,45 @@ export default function OfferPage() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offer &&
-                offer?.images?.slice(0, 6).map((link) => (
-                  <div className="offer__image-wrapper" key={link}>
-                    <img
-                      className="offer__image"
-                      src={link}
-                      alt="Photo studio"
-                    />
-                  </div>
-                ))}
+              {offer.images.slice(0, 6).map((link) => (
+                <div className="offer__image-wrapper" key={link}>
+                  <img className="offer__image" src={link} alt="Photo studio" />
+                </div>
+              ))}
             </div>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {offer?.isPremium && <PremiumItem className="offer__mark" />}
+              {offer.isPremium && <PremiumItem className="offer__mark" />}
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{offer?.title}</h1>
-                {offer && <BookmarkButton type="offer" offer={offer} />}
+                <h1 className="offer__name">{offer.title}</h1>
+                <BookmarkButton type="offer" offer={offer} />
               </div>
-              <RatingItem rating={offer?.rating ?? 0} type="offer" />
+              <RatingItem rating={offer.rating} type="offer" />
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {offer?.type}
+                  {offer.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {offer &&
-                    (offer?.bedrooms === 1
-                      ? '1 Bedroom'
-                      : `${offer.bedrooms} Bedrooms`)}
+                  {offer.bedrooms === 1
+                    ? '1 Bedroom'
+                    : `${offer.bedrooms} Bedrooms`}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  {offer &&
-                    `Max ${
-                      offer.maxAdults === 1
-                        ? '1 adult'
-                        : `${offer.maxAdults} adults`
-                    }`}
+                  Max{' '}
+                  {offer.maxAdults === 1
+                    ? '1 adult'
+                    : `${offer.maxAdults} adults`}
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{offer?.price}</b>
+                <b className="offer__price-value">&euro;{offer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offer?.goods?.map((goodItem) => (
+                  {offer.goods.map((goodItem) => (
                     <li className="offer__inside-item" key={goodItem}>
                       {goodItem}
                     </li>
@@ -135,32 +125,30 @@ export default function OfferPage() {
                 <div className="offer__host-user user">
                   <div
                     className={`offer__avatar-wrapper ${
-                      offer?.host?.isPro && 'offer__avatar-wrapper--pro'
+                      offer.host?.isPro && 'offer__avatar-wrapper--pro'
                     } user__avatar-wrapper`}
                   >
                     <img
                       className="offer__avatar user__avatar"
-                      src={offer?.host?.avatarUrl && offer.host.avatarUrl}
+                      src={offer.host?.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">
-                    {offer?.host?.name && offer.host.name}
-                  </span>
-                  {offer?.host?.isPro && offer.host.isPro && (
+                  <span className="offer__user-name">{offer.host?.name}</span>
+                  {offer.host?.isPro && (
                     <span className="offer__user-status">Pro</span>
                   )}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">{offer?.description}</p>
+                  <p className="offer__text">{offer.description}</p>
                 </div>
               </div>
-              {offer && <ReviewsSection offerId={offer?.id} />}
+              <ReviewsSection offerId={offer.id} />
             </div>
           </div>
-          {slicedPlaces.length && offer && (
+          {slicedPlaces.length > 0 && (
             <MapView
               cityInfomation={getCityInfomation(offer)}
               selectedPlace={activeOfferId}
@@ -169,10 +157,10 @@ export default function OfferPage() {
             />
           )}
         </section>
-        {slicedPlaces.length && offer && (
+        {slicedPlaces.length > 0 && (
           <NeighbourhoodPlaces
             setActiveOfferId={setActiveOfferId}
-            offerId={offer?.id}
+            offerId={offer.id}
           />
         )}
       </main>

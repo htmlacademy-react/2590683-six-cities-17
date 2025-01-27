@@ -60,6 +60,7 @@ export enum NameSpace {
   User = 'USER',
   Favorites = 'FAVORITES',
   Reviews = 'REVIEWS',
+  Combined = 'COMBINED',
 }
 
 export enum AppRoute {
