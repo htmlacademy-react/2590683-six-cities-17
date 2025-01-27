@@ -43,7 +43,11 @@ function MapView({
 
     if (map && points) {
       markers.forEach((marker) => marker.remove());
-      points.forEach((point) => {
+
+      points.forEach((point, index) => {
+        const isHighlighted =
+          point.id === selectedPlace || (type === 'offer' && index === 0);
+
         const marker = leaflet
           .marker(
             {
@@ -51,10 +55,7 @@ function MapView({
               lng: point.location?.longitude,
             },
             {
-              icon:
-                point.id === selectedPlace
-                  ? currentCustomIcon
-                  : defaultCustomIcon,
+              icon: isHighlighted ? currentCustomIcon : defaultCustomIcon,
             }
           )
           .addTo(map);
@@ -66,7 +67,7 @@ function MapView({
     return () => {
       markers.forEach((marker) => marker.remove());
     };
-  }, [map, points, selectedPlace]);
+  }, [map, points, selectedPlace, type]);
 
   return <section ref={mapRef} className={`map ${type && `${type}__map`}`} />;
 }

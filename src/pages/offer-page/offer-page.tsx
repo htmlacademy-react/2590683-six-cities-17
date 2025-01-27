@@ -36,7 +36,9 @@ export default function OfferPage() {
   const allNeighbourhoodPlaces = useAppSelector(getNearByOffers);
   const { id } = useParams<{ id: string }>();
 
-  const slicedPlaces = allNeighbourhoodPlaces?.slice(0, 3) || [];
+  const slicedPlaces = offer
+    ? [offer, ...(allNeighbourhoodPlaces?.slice(0, 3) || [])]
+    : allNeighbourhoodPlaces?.slice(0, 3) || [];
 
   useEffect(() => {
     const fetchData = async () => {
