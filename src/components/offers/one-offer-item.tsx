@@ -27,9 +27,7 @@ export default function OneOfferItem({
       onMouseEnter={() => handleMouseEnter(offer.id)}
       onMouseLeave={handleMouseLeave}
     >
-      {offer && offer.isPremium && (
-        <PremiumItem className={`place-card__mark`} />
-      )}
+      {offer && offer.isPremium && <PremiumItem className="place-card__mark" />}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
         <div>

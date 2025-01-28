@@ -4,6 +4,12 @@ import { fetchAddReviewAction } from '../../../store/api-actions';
 import RatingReviewItem from './rating-review-item';
 import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
+import {
+  REVIEWS__HELP_1,
+  REVIEWS__HELP_2,
+  REVIEWS__STAR_TITLE,
+  REVIEWS__TEXT_AMOUNT,
+} from '../../../consts';
 
 const ReviewForm: React.FC<{ Id: string }> = ({ Id }) => {
   const dispatch = useAppDispatch();
@@ -72,7 +78,7 @@ const ReviewForm: React.FC<{ Id: string }> = ({ Id }) => {
       setSelectedRating(0);
       setTextReview('');
     }
-  }, [location]);
+  }, [location, Id]);
 
   return (
     <form className="reviews__form form" onSubmit={submitHandler}>
@@ -95,9 +101,10 @@ const ReviewForm: React.FC<{ Id: string }> = ({ Id }) => {
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set{' '}
-          <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">50 characters</b>.
+          {REVIEWS__HELP_1}{' '}
+          <span className="reviews__star">{REVIEWS__STAR_TITLE}</span>{' '}
+          {REVIEWS__HELP_2}{' '}
+          <b className="reviews__text-amount">{REVIEWS__TEXT_AMOUNT}</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

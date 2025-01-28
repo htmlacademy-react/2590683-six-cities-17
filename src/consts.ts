@@ -3,17 +3,19 @@ export const MAIN_EMPTY_TEXT =
   'We could not find any property available at the moment in';
 export const FAVORITES__TITLE = 'Saved listing';
 export const NEAR_PLACES_TITLE = 'Other places in the neighbourhood';
-export const REVIEWS__TITLE = `Reviews`;
+export const REVIEWS__TITLE = 'Reviews';
 export const PLACE_FOUND_TITLE = 'place to stay in';
 export const PLACES_FOUND_TITLE = 'places to stay in';
-
-// export const
-// export const
-// export const
-// export const
-// export const
-
 export const OFFER__HOST_TITLE = 'Meet the host';
+export const REVIEWS__HELP_1 = 'To submit review please make sure to set';
+export const REVIEWS__HELP_2 = 'and describe your stay with at least';
+export const REVIEWS__STAR_TITLE = 'rating';
+export const REVIEWS__TEXT_AMOUNT = '50 characters';
+export const PREMIUM_ITEM_TITLE = 'Premium';
+export const PLACES_SORTING_CAPTION = 'Sort by ';
+export const CITIES_STATUS_EMPTY = 'No places to stay available';
+export const CITIES_STATUS_EMPTY_DESCRIPTION =
+  'We could not find any property available at the moment in';
 
 export enum LoginInputNames {
   EMail = 'E-mail',

@@ -32,11 +32,13 @@ export default function OfferPage() {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   const offer = useAppSelector((state) => state.COMBINED.detailedOffer);
-  const slicedPlaces = useMemo(() => {
-    return offer
-      ? [offer, ...(allNeighbourhoodPlaces?.slice(0, 3) || [])]
-      : allNeighbourhoodPlaces?.slice(0, 3) || [];
-  }, [offer, allNeighbourhoodPlaces]);
+  const slicedPlaces = useMemo(
+    () =>
+      offer
+        ? [offer, ...(allNeighbourhoodPlaces?.slice(0, 3) || [])]
+        : allNeighbourhoodPlaces?.slice(0, 3) || [],
+    [offer, allNeighbourhoodPlaces]
+  );
 
   useEffect(() => {
     const fetchData = async () => {

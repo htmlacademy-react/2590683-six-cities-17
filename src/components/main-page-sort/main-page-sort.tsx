@@ -1,4 +1,4 @@
-import { FilterList } from '../../consts';
+import { FilterList, PLACES_SORTING_CAPTION } from '../../consts';
 
 type MainPageSort = {
   openHandleSort: () => void;
@@ -15,7 +15,7 @@ const MainPageSort = ({
 }: MainPageSort) => {
   return (
     <form className="places__sorting">
-      <span className="places__sorting-caption">Sort by </span>
+      <span className="places__sorting-caption">{PLACES_SORTING_CAPTION}</span>
       <span
         className="places__sorting-type"
         tabIndex={0}

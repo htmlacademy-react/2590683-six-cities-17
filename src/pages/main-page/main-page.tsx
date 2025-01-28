@@ -25,14 +25,14 @@ export default function MainPage() {
   );
   const allPlaces = useAppSelector((state) => state.COMBINED.offers);
   const isAuth = useAppSelector((state) => state.USER.authorizationStatus);
-  const activeCity = useAppSelector((state) => state.COMBINED.currentCity);
+  const activeCity: Cities = useAppSelector(
+    (state) => state.COMBINED.currentCity
+  );
   const favoritesOffers = useAppSelector((state) => state.COMBINED.favorites);
 
   const placesInChoosedCity =
     allPlaces &&
-    allPlaces.filter((place) => {
-      return place.city.name === activeCity;
-    });
+    allPlaces.filter((place) => (place.city.name as Cities) === activeCity);
 
   const changeCityHandler = (city: Cities) => {
     dispatch(setCurrentCity(city));
@@ -48,7 +48,7 @@ export default function MainPage() {
       }
     };
     fetchData();
-  }, [dispatch, allPlaces, favoritesOffers]);
+  }, [dispatch, allPlaces, favoritesOffers, isAuth]);
 
   if (isOffersLoading || isOffersFavoritesLoading) {
     return <LoadingScreen />;

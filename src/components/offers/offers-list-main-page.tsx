@@ -22,17 +22,14 @@ export default function OffersListMainPage({
   activeCity,
   setActivePlace,
 }: OffersListMainPagePropsType) {
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const [isOpenSort, setIsOpenSort] = useState(false);
   const [filterNow, setFilterNow] = useState(FilterList.Popular);
 
   const handleMouseEnter = (id: string) => {
-    setActiveOfferId(id);
     setActivePlace?.(id);
   };
 
   const handleMouseLeave = () => {
-    setActiveOfferId(null);
     setActivePlace(null);
   };
 
