@@ -1,13 +1,18 @@
-import { useState } from 'react';
-import { OfferInterface } from '../../mocks/offers';
+import { useEffect } from 'react';
 import TextForOffers from '../offers/with-text-for-offers';
-import OneCardItem from '../offers/one-card-item';
+import OneOfferItem from '../offers/one-offer-item';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchNearByOffersAction } from '../../store/api-actions';
 
 type NeighbourhoodPlacesPropsType = {
-  offers: OfferInterface[] | null;
+  offerId: string;
+  setActiveOfferId: (id: string | null) => void;
 };
-function NeighbourhoodPlaces({ offers }: NeighbourhoodPlacesPropsType) {
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+function NeighbourhoodPlaces({
+  offerId,
+  setActiveOfferId,
+}: NeighbourhoodPlacesPropsType) {
+  const dispatch = useAppDispatch();
   const handleMouseEnter = (id: string) => {
     setActiveOfferId(id);
   };
@@ -15,15 +20,24 @@ function NeighbourhoodPlaces({ offers }: NeighbourhoodPlacesPropsType) {
   const handleMouseLeave = () => {
     setActiveOfferId(null);
   };
+
+  const nearByOffers = useAppSelector((state) => state.COMBINED.nearByOffers);
+  const slicedPlaces = nearByOffers?.slice(0, 3) || [];
+
+  useEffect(() => {
+    if (!nearByOffers.length) {
+      dispatch(fetchNearByOffersAction({ offerId }));
+    }
+  }, [dispatch]);
   return (
     <div className="container">
       <TextForOffers type="nearPlaces">
-        {offers &&
-          offers.map((offer) => (
-            <OneCardItem
+        {slicedPlaces &&
+          slicedPlaces.map((offer) => (
+            <OneOfferItem
               className="near-places"
               key={offer.id}
-              card={offer}
+              offer={offer}
               handleMouseEnter={handleMouseEnter}
               handleMouseLeave={handleMouseLeave}
             />

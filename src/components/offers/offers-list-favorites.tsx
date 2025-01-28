@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import OneCardFavoritesPage from './one-card-favotites-page';
-import { OfferInterface } from '../../mocks/offers';
+import { OfferInterface } from '../../types/places-type';
 
 type OffersListPropsType = {
   offers: OfferInterface[];

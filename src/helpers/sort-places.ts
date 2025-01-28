@@ -1,20 +1,21 @@
-import { OfferInterface } from '../mocks/offers';
+import { FilterList } from '../consts';
+import { OfferInterface } from '../types/places-type';
 
 export const sortPlaces = (
   offers: OfferInterface[],
-  filter: string
+  filter: FilterList
 ): OfferInterface[] => {
   switch (filter) {
-    case 'Popular':
+    case FilterList.Popular:
       return [...offers];
 
-    case 'Price: low to high':
+    case FilterList.PriceLowToHigh:
       return [...offers].sort((a, b) => a.price - b.price);
 
-    case 'Price: high to low':
+    case FilterList.PriceHighToLow:
       return [...offers].sort((a, b) => b.price - a.price);
 
-    case 'Top rated first':
+    case FilterList.TopRatedFirst:
       return [...offers].sort((a, b) => b.rating - a.rating);
 
     default:

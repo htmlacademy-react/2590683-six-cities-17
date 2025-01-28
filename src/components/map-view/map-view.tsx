@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { OfferInterface } from '../../mocks/offers';
 import useMap from '../../hooks/useMap';
 import leaflet from 'leaflet';
+import { OfferInterface } from '../../types/places-type';
+import pin from '../../../markup/img/pin.svg';
+import pinActiv from '../../../markup/img/pin-active.svg';
 
 type MapPropsType = {
   cityInfomation: {
@@ -10,7 +12,7 @@ type MapPropsType = {
     lng: number;
     zoom: number;
   };
-  points: OfferInterface[] | null;
+  points: OfferInterface[];
   selectedPlace?: string | null;
   type: 'offer' | 'cities';
 };
@@ -25,49 +27,49 @@ function MapView({
   const map = useMap(mapRef, cityInfomation);
 
   const defaultCustomIcon = leaflet.icon({
-    iconUrl:
-      'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+    iconUrl: pin,
     iconSize: [40, 40],
-
     iconAnchor: [20, 40],
   });
 
   const currentCustomIcon = leaflet.icon({
-    iconUrl:
-      'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
+    iconUrl: pinActiv,
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
 
   useEffect(() => {
-    if (map) {
-      points.forEach((point) => {
-        leaflet
+    const markers: leaflet.Marker[] = [];
+
+    if (map && points) {
+      markers.forEach((marker) => marker.remove());
+
+      points.forEach((point, index) => {
+        const isHighlighted =
+          point.id === selectedPlace || (type === 'offer' && index === 0);
+
+        const marker = leaflet
           .marker(
             {
               lat: point.location?.latitude,
               lng: point.location?.longitude,
             },
             {
-              icon:
-                point.id === selectedPlace
-                  ? currentCustomIcon
-                  : defaultCustomIcon,
+              icon: isHighlighted ? currentCustomIcon : defaultCustomIcon,
             }
           )
           .addTo(map);
+
+        markers.push(marker);
       });
     }
-  }, [map, points, selectedPlace]);
 
-  return (
-    <section
-      ref={mapRef}
-      className={`map ${
-        type === 'offer' ? 'offer__map' : type === 'cities' ? 'cities__map' : ''
-      }`}
-    />
-  );
+    return () => {
+      markers.forEach((marker) => marker.remove());
+    };
+  }, [map, points, selectedPlace, type]);
+
+  return <section ref={mapRef} className={`map ${type && `${type}__map`}`} />;
 }
 
 export default MapView;

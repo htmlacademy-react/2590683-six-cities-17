@@ -1,5 +1,5 @@
 import { formatDate } from '../../helpers/format-date';
-import { ReviewType } from '../../mocks/reviews';
+import { ReviewType } from '../../types/review-type';
 import RatingItem from '../rating-item/rating-item';
 
 type OneReviewPropsType = {
@@ -26,12 +26,7 @@ function OneReview({ review }: OneReviewPropsType) {
       <div className="reviews__info">
         <RatingItem rating={review.rating} type={'review'} />
         <p className="reviews__text">{review.comment}</p>
-        <time
-          className="reviews__time"
-          // dateTime="2019-04-24"
-        >
-          {formattedDate}
-        </time>
+        <time className="reviews__time">{formattedDate}</time>
       </div>
     </li>
   );
