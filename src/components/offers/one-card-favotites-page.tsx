@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import PremiumItem from '../premium/premium';
 import RatingItem from '../rating-item/rating-item';
 import BookmarkButton from '../bookmark-button/bookmark-button';
-import { DetailedOfferInterface } from '../../types/places-type';
+import { OfferInterface } from '../../types/places-type';
 
 type OneCardFavoritesPageType = {
-  card: DetailedOfferInterface;
+  card: OfferInterface;
   handleMouseEnter: (id: string) => void;
   handleMouseLeave: () => void;
   activeOfferId: string | null;
