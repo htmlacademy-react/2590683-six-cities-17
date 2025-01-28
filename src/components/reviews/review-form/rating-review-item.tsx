@@ -1,23 +1,29 @@
 import React from 'react';
 
-type RatingReviewFormPropsType = {
-  setSelectedRating: (value: number | null) => void;
+type RatingReviewItemPropsType = {
+  setSelectedRating: (value: number) => void;
+  isSubmitting: boolean;
+  selectedRating: number;
 };
 
-const RatingReviewForm = ({ setSelectedRating }: RatingReviewFormPropsType) => (
+const RatingReviewItem = ({
+  setSelectedRating,
+  isSubmitting,
+  selectedRating,
+}: RatingReviewItemPropsType) => (
   <div className="reviews__rating-form form__rating">
     {[5, 4, 3, 2, 1].map((rating) => {
       let title;
       if (rating === 5) {
-        title = 'Perfect';
+        title = 'perfect';
       } else if (rating === 4) {
-        title = 'Good';
+        title = 'good';
       } else if (rating === 3) {
-        title = 'Not bad';
+        title = 'not bad';
       } else if (rating === 2) {
-        title = 'Badly';
+        title = 'badly';
       } else {
-        title = 'Terribly';
+        title = 'terribly';
       }
 
       return (
@@ -28,12 +34,15 @@ const RatingReviewForm = ({ setSelectedRating }: RatingReviewFormPropsType) => (
             value={rating}
             id={`${rating}-stars`}
             type="radio"
-            onClick={() => setSelectedRating(rating)}
+            disabled={isSubmitting}
+            checked={selectedRating === rating}
+            readOnly
           />
           <label
             htmlFor={`${rating}-stars`}
             className="reviews__rating-label form__rating-label"
             title={title}
+            onClick={() => setSelectedRating(rating)}
           >
             <svg className="form__star-image" width="37" height="33">
               <use xlinkHref="#icon-star"></use>
@@ -44,5 +53,4 @@ const RatingReviewForm = ({ setSelectedRating }: RatingReviewFormPropsType) => (
     })}
   </div>
 );
-
-export default RatingReviewForm;
+export default RatingReviewItem;

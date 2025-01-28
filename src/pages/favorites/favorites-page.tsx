@@ -1,21 +1,42 @@
 import Header from '../../components/header/header';
 import OffersList from '../../components/offers/offers-list-favorites';
 import Footer from '../../components/footer/footer';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import { AuthorizationStatus, FAVORITES__TITLE } from '../../consts';
 
 export default function FavoritesPage() {
-  const offers = useAppSelector((state) => state.placesAllData);
+  const dispatch = useAppDispatch();
+  const favoritesOffers = useAppSelector((state) => state.COMBINED.favorites);
+  const isAuth = useAppSelector((state) => state.USER.authorizationStatus);
 
-  const favoritesOffers = offers.filter((offer) => offer.isFavorite);
+  useEffect(() => {
+    if (favoritesOffers === null && isAuth === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [dispatch, favoritesOffers, isAuth]);
+
+  if (favoritesOffers !== null && favoritesOffers.length === 0) {
+    return (
+      <div className="page page--favorites-empty">
+        <Header />
+        <FavoritesEmpty />
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="page">
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
+            <h1 className="favorites__title">{FAVORITES__TITLE}</h1>
             <ul className="favorites__list">
-              <OffersList offers={favoritesOffers}></OffersList>
+              {favoritesOffers && <OffersList offers={favoritesOffers} />}
             </ul>
           </section>
         </div>
