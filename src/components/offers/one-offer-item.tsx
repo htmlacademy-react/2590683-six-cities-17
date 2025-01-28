@@ -1,6 +1,6 @@
 import { OfferInterface } from '../../types/places-type';
 import BookmarkButton from '../bookmark-button/bookmark-button';
-import PremiumItem from '../premium/premium';
+import PremiumItem from '../premium-item/premium-item';
 import RatingItem from '../rating-item/rating-item';
 import { Link } from 'react-router-dom';
 

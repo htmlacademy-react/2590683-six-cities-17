@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { OfferInterface } from '../../types/places-type';
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AppRoute, AuthorizationStatus } from '../../consts';
 import { toast } from 'react-toastify';
@@ -12,7 +12,7 @@ type BookmarkButtonTypeProps = {
   offer: OfferInterface;
 };
 
-const BookmarkButton = memo(function BookmarkButtonComponent({
+export default function BookmarkButton({
   type,
   offer,
 }: BookmarkButtonTypeProps) {
@@ -55,7 +55,7 @@ const BookmarkButton = memo(function BookmarkButtonComponent({
         `${type}__bookmark-button--active`
       }`}
       type="button"
-      onClick={() => changeFavoriteStatusHandler()}
+      onClick={() => void changeFavoriteStatusHandler()}
     >
       <svg
         className={`${type}__bookmark-icon`}
@@ -69,6 +69,4 @@ const BookmarkButton = memo(function BookmarkButtonComponent({
       </span>
     </button>
   );
-});
-
-export default BookmarkButton;
+}

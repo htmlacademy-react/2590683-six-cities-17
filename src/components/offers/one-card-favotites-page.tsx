@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import PremiumItem from '../premium/premium';
+import PremiumItem from '../premium-item/premium-item';
 import RatingItem from '../rating-item/rating-item';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { OfferInterface } from '../../types/places-type';

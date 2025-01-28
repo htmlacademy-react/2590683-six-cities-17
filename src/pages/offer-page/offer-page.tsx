@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 import Header from '../../components/header/header';
-import PremiumItem from '../../components/premium/premium';
+import PremiumItem from '../../components/premium-item/premium-item';
 import RatingItem from '../../components/rating-item/rating-item';
 import ReviewsSection from '../../components/reviews/reviews-section/reviews-section';
 import { getCityInfomation } from '../../helpers/coord-city';
