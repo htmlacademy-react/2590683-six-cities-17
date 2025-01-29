@@ -6,20 +6,9 @@ import { fetchNearByOffersAction } from '../../store/api-actions';
 
 type NeighbourhoodPlacesPropsType = {
   offerId: string;
-  setActiveOfferId: (id: string | null) => void;
 };
-function NeighbourhoodPlaces({
-  offerId,
-  setActiveOfferId,
-}: NeighbourhoodPlacesPropsType) {
+function NeighbourhoodPlaces({ offerId }: NeighbourhoodPlacesPropsType) {
   const dispatch = useAppDispatch();
-  const handleMouseEnter = (id: string) => {
-    setActiveOfferId(id);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveOfferId(null);
-  };
 
   const nearByOffers = useAppSelector((state) => state.COMBINED.nearByOffers);
   const slicedPlaces = nearByOffers?.slice(0, 3) || [];
@@ -38,8 +27,6 @@ function NeighbourhoodPlaces({
               className="near-places"
               key={offer.id}
               offer={offer}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
             />
           ))}
       </TextForOffers>

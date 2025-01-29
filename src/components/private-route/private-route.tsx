@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { AuthorizationStatus } from '../../consts';
+import { AppRoute, AuthorizationStatus } from '../../consts';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 interface PrivateRouteProps {
@@ -20,7 +20,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
   return authorizationStatus === AuthorizationStatus.Auth ? (
     element
   ) : (
-    <Navigate to="/login" />
+    <Navigate to={AppRoute.Login} />
   );
 };
 

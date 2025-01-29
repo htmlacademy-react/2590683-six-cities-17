@@ -1,3 +1,4 @@
+import { AppRoute } from '../../consts';
 import { OfferInterface } from '../../types/places-type';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import PremiumItem from '../premium-item/premium-item';
@@ -6,15 +7,15 @@ import { Link } from 'react-router-dom';
 
 type OneOfferItemProps = {
   offer: OfferInterface;
-  handleMouseEnter: (id: string) => void;
-  handleMouseLeave: () => void;
+  handleMouseEnter?: (id: string) => void;
+  handleMouseLeave?: () => void;
   className: string;
 };
 
 export default function OneOfferItem({
   offer,
-  handleMouseEnter,
-  handleMouseLeave,
+  handleMouseEnter = () => {},
+  handleMouseLeave = () => {},
   className,
 }: OneOfferItemProps) {
   const roundedRating = Math.round(offer.rating);
@@ -50,7 +51,12 @@ export default function OneOfferItem({
         </div>
         <RatingItem type="place" rating={roundedRating} />
         <h2 className="place-card__name">
-          <Link key={offer.id} to={`/offer/${offer.id}`}>
+          <Link
+            key={offer.id}
+            to={
+              offer.id ? AppRoute.Offer.replace(':id', offer.id) : AppRoute.Root
+            }
+          >
             <div>{offer.title}</div>
           </Link>
         </h2>
