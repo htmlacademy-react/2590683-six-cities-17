@@ -12,7 +12,7 @@ import {
   fetchFavoriteOffersAction,
   fetchNearByOffersAction,
 } from '../../store/api-actions';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { AppRoute, OFFER__HOST_TITLE } from '../../consts';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -29,7 +29,6 @@ export default function OfferPage() {
   const allNeighbourhoodPlaces = useAppSelector(
     (state) => state.COMBINED.nearByOffers
   );
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   const offer = useAppSelector((state) => state.COMBINED.detailedOffer);
   const slicedPlaces = useMemo(
@@ -153,18 +152,12 @@ export default function OfferPage() {
           {slicedPlaces.length > 0 && (
             <MapView
               cityInfomation={getCityInfomation(offer)}
-              selectedPlace={activeOfferId}
               points={slicedPlaces}
               type={'offer'}
             />
           )}
         </section>
-        {slicedPlaces.length > 0 && (
-          <NeighbourhoodPlaces
-            setActiveOfferId={setActiveOfferId}
-            offerId={offer.id}
-          />
-        )}
+        {slicedPlaces.length > 0 && <NeighbourhoodPlaces offerId={offer.id} />}
       </main>
     </div>
   );

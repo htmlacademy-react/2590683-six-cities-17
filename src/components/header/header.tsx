@@ -6,7 +6,11 @@ import {
   getAuthorizationStatus,
   getUserData,
 } from '../../store/user-process/selectors';
-import { AuthorizationStatus, StatusForAuthAction } from '../../consts';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  StatusForAuthAction,
+} from '../../consts';
 import HeaderLeftSide from './header-left-side';
 import { toast } from 'react-toastify';
 
@@ -52,7 +56,7 @@ function Header() {
                   <li className="header__nav-item user">
                     <div className="header__nav-link header__nav-link--profile">
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                      <Link to={'/favorites'}>
+                      <Link to={AppRoute.Favorites}>
                         <span className="header__user-name user__name">
                           {userData?.email}
                         </span>
@@ -69,7 +73,7 @@ function Header() {
                   </li>
                 </>
               ) : (
-                <Link to="/login">
+                <Link to={AppRoute.Login}>
                   <li className="header__nav-item user">
                     <div className="header__nav-link header__nav-link--profile">
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>

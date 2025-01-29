@@ -3,6 +3,7 @@ import PremiumItem from '../premium-item/premium-item';
 import RatingItem from '../rating-item/rating-item';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import { OfferInterface } from '../../types/places-type';
+import { AppRoute } from '../../consts';
 
 type OneCardFavoritesPageType = {
   card: OfferInterface;
@@ -45,7 +46,13 @@ function OneCardFavoritesPage({
         </div>
         <RatingItem type="place" rating={card.rating} />
         <h2 className="place-card__name">
-          <Link to={`/offer/${activeOfferId}`}>
+          <Link
+            to={
+              activeOfferId
+                ? AppRoute.Offer.replace(':id', activeOfferId)
+                : AppRoute.Root
+            }
+          >
             <div>{card.title}</div>
           </Link>
         </h2>
