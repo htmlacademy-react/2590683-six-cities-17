@@ -15,24 +15,29 @@ function Header() {
   const authStatus = useAppSelector(getAuthorizationStatus);
   const userData = useAppSelector(getUserData);
 
-  const logoutHandler = async () => {
-    try {
-      await dispatch(logoutAction()).unwrap();
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Произошла неизвестная ошибка';
+  const logoutHandler = () => {
+    const handleSubmit = async () => {
+      try {
+        await dispatch(logoutAction()).unwrap();
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : 'Произошла неизвестная ошибка';
 
-      toast.error(errorMessage, {
-        position: 'top-right',
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
-    }
+        toast.error(errorMessage, {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }
+    };
+    void handleSubmit();
   };
 
   return (

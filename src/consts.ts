@@ -16,6 +16,9 @@ export const PLACES_SORTING_CAPTION = 'Sort by ';
 export const CITIES_STATUS_EMPTY = 'No places to stay available';
 export const CITIES_STATUS_EMPTY_DESCRIPTION =
   'We could not find any property available at the moment in';
+export const REVIEWS_FORM_LABEL = 'Your review';
+export const NOT_FOUND_PAGE_TEXT = '404 Not Found';
+export const NOT_FOUND_PAGE_TEXT_LINK = 'вернуться на главную';
 
 export enum LoginInputNames {
   EMail = 'E-mail',

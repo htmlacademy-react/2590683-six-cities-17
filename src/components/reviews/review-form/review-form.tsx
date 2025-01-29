@@ -5,13 +5,17 @@ import RatingReviewItem from './rating-review-item';
 import { toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import {
+  REVIEWS_FORM_LABEL,
   REVIEWS__HELP_1,
   REVIEWS__HELP_2,
   REVIEWS__STAR_TITLE,
   REVIEWS__TEXT_AMOUNT,
 } from '../../../consts';
+interface ReviewFormProps {
+  Id: string;
+}
 
-const ReviewForm: React.FC<{ Id: string }> = ({ Id }) => {
+const ReviewForm = ({ Id }: ReviewFormProps) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
@@ -25,36 +29,21 @@ const ReviewForm: React.FC<{ Id: string }> = ({ Id }) => {
     setTextReview(event.target.value);
   };
 
-  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      await dispatch(
-        fetchAddReviewAction({
-          comment: textReview,
-          rating: selectedRating,
-          offerId: Id,
-        })
-      ).unwrap();
+    const handleSubmit = async () => {
+      try {
+        await dispatch(
+          fetchAddReviewAction({
+            comment: textReview,
+            rating: selectedRating,
+            offerId: Id,
+          })
+        ).unwrap();
 
-      toast.success('Комментарий успешно отправлен!', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
-
-      setSelectedRating(0);
-      setTextReview('');
-    } catch {
-      toast.error(
-        'Ошибка отправки комментария! Проверьте данные и повторите попытку!',
-        {
+        toast.success('Комментарий успешно отправлен!', {
           position: 'top-right',
           autoClose: 5000,
           hideProgressBar: true,
@@ -63,11 +52,29 @@ const ReviewForm: React.FC<{ Id: string }> = ({ Id }) => {
           draggable: true,
           progress: undefined,
           theme: 'colored',
-        }
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+        });
+
+        setSelectedRating(0);
+        setTextReview('');
+      } catch {
+        toast.error(
+          'Ошибка отправки комментария! Проверьте данные и повторите попытку!',
+          {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          }
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+    void handleSubmit();
   };
 
   const isButtonEnabled = () =>
@@ -83,7 +90,7 @@ const ReviewForm: React.FC<{ Id: string }> = ({ Id }) => {
   return (
     <form className="reviews__form form" onSubmit={submitHandler}>
       <label className="reviews__label form__label" htmlFor="review">
-        Your review
+        {REVIEWS_FORM_LABEL}
       </label>
       <RatingReviewItem
         setSelectedRating={setSelectedRating}

@@ -67,7 +67,7 @@ function MapView({
     return () => {
       markers.forEach((marker) => marker.remove());
     };
-  }, [map, points, selectedPlace, type]);
+  }, [map, points, selectedPlace, type, currentCustomIcon, defaultCustomIcon]);
 
   return <section ref={mapRef} className={`map ${type && `${type}__map`}`} />;
 }

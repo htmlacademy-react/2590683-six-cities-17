@@ -7,7 +7,7 @@ import React from 'react';
 import { isValidPassword } from '../../helpers/is-password-valid';
 import { useNavigate } from 'react-router-dom';
 
-function LoginForm() {
+export default function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -24,8 +24,8 @@ function LoginForm() {
           setPassword('');
           navigate(AppRoute.Root);
         })
-        .catch((err) => {
-          toast.error(err.message, {
+        .catch((error: { message: string }) => {
+          toast.error(error.message, {
             position: 'top-right',
             autoClose: 2000,
             hideProgressBar: true,
@@ -74,5 +74,3 @@ function LoginForm() {
     </section>
   );
 }
-
-export default React.memo(LoginForm);

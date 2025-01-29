@@ -28,7 +28,7 @@ function NeighbourhoodPlaces({
     if (!nearByOffers.length) {
       dispatch(fetchNearByOffersAction({ offerId }));
     }
-  }, [dispatch]);
+  }, [dispatch, nearByOffers.length, offerId]);
   return (
     <div className="container">
       <TextForOffers type="nearPlaces">
